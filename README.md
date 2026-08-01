@@ -82,5 +82,53 @@ from langgraph.graph.message import add_messages
 ```
 So if we are asking some messages to the LLM and LLM in return gives us reply, these all messages are **Appended** in the ```StateGraph``` using this reducer to hold the entire history of the conversation in the `List`.
 
+---
 
+
+## FastMCP
+---
+**FastMCP is a full framework for building Model Context Protocol (MCP) applications.** It provides a single, unified API to:
+- Turn Python functions into MCP tools.
+- Connect to local or remote MCP servers.
+- Return interactive interfaces directly from tools.
+
+It handles all the background details like schema validation, authentication, and communication protocols for you.
+
+- Library required to install: 
+```uv add fastmcp``` for server 
+```uv add langchain-mcp-adapters``` for Client
+```langgraph```
+```langchain```
+```langchain-google-genai```
+
+```python
+from fastmcp import FastMCP
+
+mcp = FastMCP("Demo 🚀")
+
+
+@mcp.tool
+def add(a: int, b: int) -> int:
+    """Add two numbers."""
+    return a + b
+
+
+if __name__ == "__main__":
+    mcp.run()
+```
+**How to run the code:**
+
+```bash
+python weather.py
+```
+
+**Expected Output:**
+```
+Listening on [::]:8000...
+* Started server process [27264]
+* Running on http://[IP_ADDRESS]/
+* Press CTRL+C to quit
+127.0.0.1 - - [01/Aug/2026 23:00:45] "POST / HTTP/1.1" 200 OK
+
+```
 
