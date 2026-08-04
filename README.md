@@ -101,6 +101,13 @@ It handles all the background details like schema validation, authentication, an
 ```langchain```
 ```langchain-google-genai```
 
+
+Ensure .venv is activated before running the code. To activate run the following command from git-bash - 
+```bash
+source .venv/Scripts/activate
+```
+
+
 ```python
 from fastmcp import FastMCP
 
@@ -116,19 +123,25 @@ def add(a: int, b: int) -> int:
 if __name__ == "__main__":
     mcp.run()
 ```
-**How to run the code:**
+**How to run the code?** Since it's using uv virtual environments so:
 
 ```bash
-python weather.py
+uv run python weather.py
 ```
 
 **Expected Output:**
 ```
-Listening on [::]:8000...
-* Started server process [27264]
-* Running on http://[IP_ADDRESS]/
-* Press CTRL+C to quit
-127.0.0.1 - - [01/Aug/2026 23:00:45] "POST / HTTP/1.1" 200 OK
+[08/04/26 10:04:21] INFO     Starting MCP server transport.py:361                             'weather' with
+                             transport
+                             'streamable-http'
+                             on
+                             http://127.0.0.1:90
+                             00/mcp
+INFO:     Started server process [13268]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:9000 (Press CTRL+C 
+to quit)
 
 ```
 

@@ -12,19 +12,19 @@ os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
 
 async def main():
     client = MultiServerMCPClient(
-    #Passing the servers with their names 
+    #Assigning the tools to the client 
         {
-            # First one was Stdio server, so command is given instead of URL
+            # First one was Stdio server, so command keyword is given instead of URL
             "mathserver": {
                 "transport": "stdio",
-                "command": "python",
-                "args": ["../mcp-server/mathserver.py"] #Direct path to the server file (Absolute path)
+                "command": "uv",
+                "args": ["run", "python", "../mcp-server/mathserver.py"] #Direct path to the server file (Absolute path)
             },
 
             #Second server was http, so used URL
             "weatherserver": {
                 "transport": "streamable-http",
-                "url": "http://localhost:9000"
+                "url": "http://localhost:9000/mcp"
             }
         }
     )
@@ -41,11 +41,25 @@ async def main():
     "messages": [
         {
             "role": "user", 
-            "content": "Hello"
+            "content": "Hello, what is (2 + 7) * 15 / 9?"
         }
     ]
     })
-    print(response)
+    print(response["messages"][-1].content)
+
+
+    # Invoke and get response (Streaming)
+    async for chunk in agent.astream({
+        "messages": [
+            {
+                "role": "user", 
+                "content": "What is the weather like in Bangalore?"
+            }
+        ]
+    }):
+        if "messages" in chunk:
+            print(chunk["messages"][-1].content, end="", flush=True)
+    print() # Newline at the end
 
 
 asyncio.run(main())

@@ -1,6 +1,6 @@
 from fastmcp import FastMCP
 
-mcp = FastMCP("arithmatic_server") #The name of the server is "weather"
+mcp = FastMCP("arithmatic_server") #The name of the server is "arithmatic_server"
 
 #Defining Tools
 @mcp.tool()
